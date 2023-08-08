@@ -1,11 +1,10 @@
-# Base image
-FROM ubuntu:20.04
+FROM ubuntu:focal
 
-# Update and install Nginx
-RUN apt-get update && apt-get install -y nginx
-
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx service
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && apt-get install -y nginx git
+RUN git clone https://github.com/jinsgjg/static-web-template.git
+COPY nginx/sites-available/default /etc/nginx/sites-available/default
+RUN cp -r static-web-template/* /usr/share/nginx/html/
 CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 80
