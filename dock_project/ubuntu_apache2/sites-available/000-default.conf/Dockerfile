@@ -1,11 +1,9 @@
 # Base image
-FROM ubuntu:20.04
-
-# Update and install Apache2
-RUN apt-get update && apt-get install -y apache2
-
-# Expose port 80
+FROM ubuntu:focal
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && apt-get install -y apache2 git
+RUN git clone https://github.com/jinsgjg/static-web-template.git
+RUN cp -r static-web-template/* /var/www/html/
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 EXPOSE 80
-
-# Start Apache2 service
-CMD ["apachectl", "-D", "FOREGROUND"]
