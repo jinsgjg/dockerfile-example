@@ -5,11 +5,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: lb-test
+      app: test-nginx
   template:
     metadata:
       labels:
-        app: lb-test
+        app: test-nginx
     spec:
       containers:
       - name: lb-container
